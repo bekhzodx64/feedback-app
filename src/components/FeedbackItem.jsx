@@ -1,11 +1,29 @@
+import Card from './shared/Card'
+import { deleteItem } from 'store/features/feedbackSlice'
+import { useDispatch } from 'react-redux'
+
+import { AiFillDelete } from 'react-icons/ai'
+
 const FeedbackItem = ({ feedback }) => {
-	const { title, rating } = feedback
+	const { text, rating } = feedback
+	const dispatch = useDispatch()
+
+	const deleteItemHandler = (feedback) => {
+		dispatch(deleteItem(feedback))
+	}
 
 	return (
-		<div className='card'>
+		<Card>
 			<div className='num-display'>{rating}</div>
-			<div className='text-display'>{title}</div>
-		</div>
+			<button
+				type='button'
+				className='close'
+				onClick={() => deleteItemHandler(feedback)}
+			>
+				<AiFillDelete color='red' />
+			</button>
+			<div className='text-display'>{text}</div>
+		</Card>
 	)
 }
 
