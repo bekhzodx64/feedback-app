@@ -1,19 +1,17 @@
-import { Fragment } from 'react'
-import Header from 'components/Header'
-import FeedbackList from 'components/FeedbackList'
-import FeedbackStats from 'components/FeedbackStats'
-import FeedbackForm from 'components/FeedbackForm'
+import { Routes, Route } from 'react-router-dom'
+import Layout from 'components/shared/Layout'
+
+import HomePage from 'pages/HomePage'
+import AboutPage from 'pages/AboutPage'
 
 const App = () => {
 	return (
-		<Fragment>
-			<Header />
-			<div className='container'>
-				<FeedbackForm />
-				<FeedbackStats />
-				<FeedbackList />
-			</div>
-		</Fragment>
+		<Routes>
+			<Route path='/' element={<Layout />}>
+				<Route index element={<HomePage />} />
+				<Route path='about' element={<AboutPage />} />
+			</Route>
+		</Routes>
 	)
 }
 

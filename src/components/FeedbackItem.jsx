@@ -2,7 +2,7 @@ import Card from './shared/Card'
 import { deleteItem } from 'store/features/feedbackSlice'
 import { useDispatch } from 'react-redux'
 
-import { AiFillDelete } from 'react-icons/ai'
+import { IoClose } from 'react-icons/io5'
 
 const FeedbackItem = ({ feedback }) => {
 	const { text, rating } = feedback
@@ -20,7 +20,7 @@ const FeedbackItem = ({ feedback }) => {
 				className='close'
 				onClick={() => deleteItemHandler(feedback)}
 			>
-				<AiFillDelete color='red' />
+				<IoClose color='red' size={24} />
 			</button>
 			<div className='text-display'>{text}</div>
 		</Card>

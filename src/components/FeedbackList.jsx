@@ -7,7 +7,7 @@ const FeedbackList = () => {
 	const { feedbacks } = useSelector((state) => state.feedback)
 
 	if (!feedbacks || feedbacks.length === 0) {
-		return <p>No feedback Yet</p>
+		return <p style={{ textAlign: 'center' }}>No feedback Yet</p>
 	}
 
 	return (

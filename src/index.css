@@ -32,6 +32,10 @@ header {
 	margin-bottom: 30px;
 }
 
+header a {
+	text-decoration: none;
+}
+
 .card {
 	background-color: #fff;
 	color: #333;
@@ -131,10 +135,6 @@ input:focus {
 	left: -10px;
 }
 
-.close svg {
-	font-size: 24px;
-}
-
 .close,
 .edit {
 	position: absolute;
@@ -191,8 +191,9 @@ input:focus {
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
  * document */
 .about-link {
-	display: flex;
-	justify-content: flex-end;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
 }
 
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
