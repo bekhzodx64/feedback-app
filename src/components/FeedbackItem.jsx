@@ -1,8 +1,9 @@
 import Card from './shared/Card'
-import { deleteItem } from 'store/features/feedbackSlice'
+import { deleteItem, editFeedbackHandler } from 'store/features/feedbackSlice'
 import { useDispatch } from 'react-redux'
 
 import { IoClose } from 'react-icons/io5'
+import { RiEditBoxLine } from 'react-icons/ri'
 
 const FeedbackItem = ({ feedback }) => {
 	const { text, rating } = feedback
@@ -10,6 +11,10 @@ const FeedbackItem = ({ feedback }) => {
 
 	const deleteItemHandler = (feedback) => {
 		dispatch(deleteItem(feedback))
+	}
+
+	const handleEditFeedback = (feedback) => {
+		dispatch(editFeedbackHandler(feedback))
 	}
 
 	return (
@@ -21,6 +26,13 @@ const FeedbackItem = ({ feedback }) => {
 				onClick={() => deleteItemHandler(feedback)}
 			>
 				<IoClose color='red' size={24} />
+			</button>
+			<button
+				type='button'
+				className='edit'
+				onClick={() => handleEditFeedback(feedback)}
+			>
+				<RiEditBoxLine color='darkBlue' size={24} />
 			</button>
 			<div className='text-display'>{text}</div>
 		</Card>

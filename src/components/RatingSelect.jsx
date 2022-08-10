@@ -1,12 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+import { useSelector } from 'react-redux'
 
 const RatingSelect = ({ select }) => {
 	const [selected, setSelected] = useState(10)
+
+	const { editFeedback } = useSelector((state) => state.feedback)
 
 	const handleChange = (e) => {
 		setSelected(+e.currentTarget.value)
 		select(+e.currentTarget.value)
 	}
+
+	useEffect(() => {
+		setSelected(editFeedback.rating)
+	}, [editFeedback])
 
 	return (
 		<ul className='rating'>

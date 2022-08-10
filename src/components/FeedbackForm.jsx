@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Card from './shared/Card'
 import RatingSelect from './RatingSelect'
 import Button from './shared/Button'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { nanoid } from '@reduxjs/toolkit'
-import { addFeedback } from 'store/features/feedbackSlice'
+import {
+	addFeedback,
+	saveUpdatedFeedback,
+	editFeedbackHandler,
+} from 'store/features/feedbackSlice'
 
 const FeedbackForm = () => {
 	const dispatch = useDispatch()
@@ -13,6 +17,8 @@ const FeedbackForm = () => {
 	const [btnDisabled, setBtnDisabled] = useState(true)
 	const [message, setMessage] = useState('')
 	const [rating, setRating] = useState(10)
+
+	const { edit, editFeedback } = useSelector((state) => state.feedback)
 
 	const handleTextChange = (e) => {
 		if (text === '') {
@@ -37,10 +43,28 @@ const FeedbackForm = () => {
 				text,
 				rating,
 			}
-			dispatch(addFeedback(newFeedback))
+
+			if (edit) {
+				const newUpdatedFeedback = {
+					id: editFeedback.id,
+					text,
+					rating,
+				}
+				dispatch(saveUpdatedFeedback(newUpdatedFeedback))
+			} else {
+				dispatch(addFeedback(newFeedback))
+			}
 		}
 		setText('')
 	}
+
+	useEffect(() => {
+		if (edit) {
+			setBtnDisabled(false)
+			setText(editFeedback.text)
+			setRating(editFeedback.rating)
+		}
+	}, [editFeedback])
 
 	return (
 		<Card>
@@ -55,7 +79,7 @@ const FeedbackForm = () => {
 						value={text}
 					/>
 					<Button type='submit' disabled={btnDisabled}>
-						Send
+						{edit ? 'Save' : 'Send'}
 					</Button>
 				</div>
 				{message && <div className='message'>{message}</div>}

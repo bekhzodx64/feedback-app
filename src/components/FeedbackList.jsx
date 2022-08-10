@@ -12,9 +12,12 @@ const FeedbackList = () => {
 
 	return (
 		<div className='feedback-list'>
-			{feedbacks.map((feedback) => (
-				<FeedbackItem key={nanoid()} feedback={feedback} />
-			))}
+			{feedbacks
+				.slice(0)
+				.reverse()
+				.map((feedback) => (
+					<FeedbackItem key={nanoid()} feedback={feedback} />
+				))}
 		</div>
 	)
 }

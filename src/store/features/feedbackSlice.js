@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 	feedbacks: [],
+	editFeedback: {},
+	edit: false,
 	averageRating: 0,
 }
 
@@ -21,6 +23,23 @@ const feedbackSlice = createSlice({
 			const findItem = state.feedbacks.filter((item) => item.id !== payload.id)
 			state.feedbacks = findItem
 		},
+		editFeedbackHandler: (state, { payload }) => {
+			state.edit = true
+			state.editFeedback = payload
+		},
+		saveUpdatedFeedback: (state, { payload }) => {
+			const tempProduct = payload
+
+			const check = state.feedbacks.map((feedback) =>
+				feedback.id === tempProduct.id
+					? { ...feedback, ...tempProduct }
+					: feedback
+			)
+
+			state.edit = false
+			state.editFeedback = {}
+			state.feedbacks = check
+		},
 		getAverageRating: (state) => {
 			let average = state.feedbacks.reduce((acc, cur) => {
 				const result = acc + cur.rating
@@ -31,6 +50,11 @@ const feedbackSlice = createSlice({
 	},
 })
 
-export const { addFeedback, deleteItem, getAverageRating } =
-	feedbackSlice.actions
+export const {
+	addFeedback,
+	deleteItem,
+	editFeedbackHandler,
+	getAverageRating,
+	saveUpdatedFeedback,
+} = feedbackSlice.actions
 export default feedbackSlice.reducer
