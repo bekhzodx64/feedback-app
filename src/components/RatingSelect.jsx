@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 const RatingSelect = ({ select }) => {
-	const [selected, setSelected] = useState(10)
+	const [selected, setSelected] = useState('')
 
 	const { editFeedback } = useSelector((state) => state.feedback)
 

@@ -5,18 +5,14 @@ import Button from './shared/Button'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { nanoid } from '@reduxjs/toolkit'
-import {
-	addFeedback,
-	saveUpdatedFeedback,
-	editFeedbackHandler,
-} from 'store/features/feedbackSlice'
+import { addFeedback, saveUpdatedFeedback } from 'store/features/feedbackSlice'
 
 const FeedbackForm = () => {
 	const dispatch = useDispatch()
 	const [text, setText] = useState('')
 	const [btnDisabled, setBtnDisabled] = useState(true)
 	const [message, setMessage] = useState('')
-	const [rating, setRating] = useState(10)
+	const [rating, setRating] = useState('')
 
 	const { edit, editFeedback } = useSelector((state) => state.feedback)
 
@@ -51,6 +47,7 @@ const FeedbackForm = () => {
 					rating,
 				}
 				dispatch(saveUpdatedFeedback(newUpdatedFeedback))
+				setRating('')
 			} else {
 				dispatch(addFeedback(newFeedback))
 			}
@@ -64,7 +61,7 @@ const FeedbackForm = () => {
 			setText(editFeedback.text)
 			setRating(editFeedback.rating)
 		}
-	}, [editFeedback])
+	}, [editFeedback, edit])
 
 	return (
 		<Card>
